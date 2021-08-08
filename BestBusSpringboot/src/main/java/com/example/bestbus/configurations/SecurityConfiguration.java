@@ -1,6 +1,5 @@
 package com.example.bestbus.configurations;
 
-import com.example.bestbus.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.example.bestbus.services.UserService;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -24,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/register","/login","/")
+        http.csrf().disable().authorizeRequests().antMatchers("/register","/login")
                 .permitAll().anyRequest().authenticated();
 
     }
@@ -38,4 +39,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+    
+    //------------------------------------------------------------------
+    
+    
+//    @Bean
+//    public UserDetailsManager userDetailsService() {
+//    	return new Userdetailmanager();
+//    }
+//    @Bean
+//    public DataSource dataSource() {
+//    	return new DriverManagerDataSource(url,username,password);
+//    }
+    
+    
+    
+    
 }
+
+
+
+
+
+

@@ -20,18 +20,14 @@ public class UserService implements UserDetailsService {
 	@Autowired
     private UserRepository userRepository;
 
-//    public List<User> getAllUser() {
-//        return  userRepository.findAll();
-//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User foundedUser =userRepository.findByUsername(username);
         if(foundedUser==null) {
-        	System.out.println("User foundedUser =userRepository.findByUsername(username); gives null :"+username);///////
+//        	System.out.println("User foundedUser =userRepository.findByUsername(username); gives null :"+username);///////
         	return null;
         }
-
         String name=foundedUser.getUsername();
         String pwd=foundedUser.getPassword();
 
