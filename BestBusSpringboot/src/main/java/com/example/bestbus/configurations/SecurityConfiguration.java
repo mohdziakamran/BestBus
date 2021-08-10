@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/register","/login")
+        http.csrf().disable().authorizeRequests().antMatchers("/**")//("/register","/login")
                 .permitAll().anyRequest().authenticated();
 
     }
@@ -36,21 +36,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManager();
     }
     
-    //------------------------------------------------------------------
     
     
-//    @Bean
-//    public UserDetailsManager userDetailsService() {
-//    	return new Userdetailmanager();
-//    }
-//    @Bean
-//    public DataSource dataSource() {
-//    	return new DriverManagerDataSource(url,username,password);
-//    }
     
     
     

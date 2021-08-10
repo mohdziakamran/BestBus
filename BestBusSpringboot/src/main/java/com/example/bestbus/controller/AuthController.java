@@ -1,18 +1,23 @@
-package com.example.bestbus.authentication;
+package com.example.bestbus.controller;
 
 
-import com.example.bestbus.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.example.bestbus.authentication.AuthenticationResponse;
+import com.example.bestbus.authentication.LoginRequest;
+import com.example.bestbus.authentication.RegistrationRequest;
+import com.example.bestbus.model.User;
+import com.example.bestbus.model.UserRepository;
 
 
-@RestController
+@Controller
 public class AuthController {
 
     @Autowired
@@ -20,23 +25,15 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("/")
-    private String home(){
-        return "Welcome home";
-    }
+    
+    
 
     @RequestMapping("/register")
-//    private ResponseEntity<?> subscribeClient(@RequestBody RegistrationRequest registrationRequest){
-    private ResponseEntity<?> subscribeClient(@RequestBody String string){
-    	String[] arr=string.split(" ");
-//        String username=registrationRequest.getUsername();
-//        String password=registrationRequest.getPassword();
-//        String email = registrationRequest.getEmail();
-    	String username=arr[0];
-        String password=arr[1];
-        String email = arr[2];
+    private ResponseEntity<?> subscribeClient(@RequestBody RegistrationRequest registrationRequest){
+        String username=registrationRequest.getUsername();
+        String password=registrationRequest.getPassword();
 
-        User user=new User(username,password,email);
+        User user=new User(username,password);
         try {
             userRepository.save(user);
         }catch (Exception e){
@@ -49,6 +46,7 @@ public class AuthController {
 
 
 
+//    private String loginview
 
     @RequestMapping("/login")
     private ResponseEntity<?> authenticateClient(@RequestBody LoginRequest loginRequest){
