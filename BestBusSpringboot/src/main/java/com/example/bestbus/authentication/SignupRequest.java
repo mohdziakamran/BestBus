@@ -1,13 +1,14 @@
 package com.example.bestbus.authentication;
 
 
-public class RegistrationRequest {
+public class SignupRequest {
 
 
     private String username;
     private String password;
-	public RegistrationRequest(String username, String password) {
-		super();
+    public SignupRequest() {
+	}
+	public SignupRequest(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
