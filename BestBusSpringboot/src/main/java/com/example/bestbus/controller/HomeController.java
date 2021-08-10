@@ -14,7 +14,7 @@ public class HomeController {
 
     @GetMapping("/home")
     private String home(){
-        return "home";
+        return "homeView";
     }
     
     @GetMapping("/")
@@ -22,16 +22,5 @@ public class HomeController {
     	return "index";
     }
     
-//    @GetMapping("/")
-//    private String testloginview(Model model) {
-//    	LoginRequest loginRequest=new LoginRequest();
-//    	model.addAttribute("loginRequest", loginRequest);
-//    	return "userlogin";
-//    }
-//    @PostMapping("/")
-//    private String testloginprocess(@ModelAttribute("user") LoginRequest loginRequest,Model model) {
-//    	System.out.println(loginRequest);////////////////
-//    	return "index";
-//    }
 
 }

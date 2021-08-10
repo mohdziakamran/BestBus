@@ -38,53 +38,85 @@ public class AuthController {
     	
     	String username=signupRequest.getUsername();
         String password=signupRequest.getPassword();
-
         User user=new User(username,password);
+        System.out.println(user.toString());////////////////
+        
         try {
             userRepository.save(user);
         }catch (Exception e){
+        	System.out.println("Signup error: "+e);/////////////
+        	model.addAttribute("signupRequest", new SignupRequest());
         	return "signupView";
         }
+        model.addAttribute("loginRequest", new LoginRequest());
     	return "loginView";
     }
     
     
-
-//    @RequestMapping("/register")
-//    private ResponseEntity<?> subscribeClient(@RequestBody RegistrationRequest registrationRequest){
-//        String username=registrationRequest.getUsername();
-//        String password=registrationRequest.getPassword();
-//
-//        User user=new User(username,password);
-//        try {
-//            userRepository.save(user);
-//        }catch (Exception e){
-//            return ResponseEntity.ok(new AuthenticationResponse("Error occurred while Registration e: "+e));
-//        }
-//
-//        return ResponseEntity.ok(new AuthenticationResponse("Successfully registered Client: "+username));
-//
-//    }
 
 
     @GetMapping("/login")
     private String viewLogin(Model model) {
     	LoginRequest loginRequest=new LoginRequest();
     	model.addAttribute("loginRequest", loginRequest);
-    	return "userLoginView";
+    	return "loginView";
     }
     @PostMapping("/login")
     private String processLogin(@ModelAttribute("user") LoginRequest loginRequest,Model model) {
     	String username=loginRequest.getUsername();
         String password =loginRequest.getPassword();
+        System.out.println(loginRequest.toString());/////////////////
+        model.addAttribute("loginRequest", new LoginRequest());
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
         }catch (Exception e){
-            return "loginView";
+        	System.out.println("login error: "+e);//////////
+        	return "loginView";
         }
     	return "homeView";
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//  @RequestMapping("/register")
+//  private ResponseEntity<?> subscribeClient(@RequestBody RegistrationRequest registrationRequest){
+//      String username=registrationRequest.getUsername();
+//      String password=registrationRequest.getPassword();
+//
+//      User user=new User(username,password);
+//      try {
+//          userRepository.save(user);
+//      }catch (Exception e){
+//          return ResponseEntity.ok(new AuthenticationResponse("Error occurred while Registration e: "+e));
+//      }
+//
+//      return ResponseEntity.ok(new AuthenticationResponse("Successfully registered Client: "+username));
+//
+//  }
 
 //    @RequestMapping("/login")
 //    private ResponseEntity<?> authenticateClient(@RequestBody LoginRequest loginRequest){
@@ -97,7 +129,6 @@ public class AuthController {
 //        }
 //        return ResponseEntity.ok(new AuthenticationResponse("Successfully login Client: "+username));
 //    }
-
 
 
 

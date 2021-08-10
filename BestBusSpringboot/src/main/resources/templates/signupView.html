@@ -9,7 +9,7 @@
 
 	<h1>Sign Up</h1>
 	
-	<form action="#" th:action="@{/}" th:object="${signupRequest}" method="post">
+	<form action="#" th:action="@{/user/signup}" th:object="${signupRequest}" method="post">
 	<div>
 		<label>username</label> 
 		<input th:field="*{username}" type="text"/>
@@ -20,7 +20,7 @@
 		<input th:field="*{password}" type="password"/>
 	</div>
 	<div>
-	<button type="submit">login</button>
+	<button type="submit">Sign Up</button>
 	<button type="reset">reset</button>
 	</div>
 	<div>
