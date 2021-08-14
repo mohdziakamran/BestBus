@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html xmlsn:th="http:www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>login</title>
+<title>home</title>
 
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
@@ -176,28 +175,20 @@ button.social-signin.google {
 <body>
 
 
-<form action="#" th:action="@{/login}" th:object="${loginRequest}" method="post">
+<form action="#" th:action="@{/logout}"  method="post">
 
 <div id="login-box">
   <div class="left">
-    <h1>Login</h1>
+    <h1>Welcome</h1>
     
-    <input th:field="*{username}" type="text" placeholder="E-mail"/> 
-    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</p>
-    <input th:field="*{password}" type="password" placeholder="Password"/> 
-    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</p>
     
-    <input type="submit" name="signup_submit" value="Login" />
+    <input type="submit" name="signup_submit" value="signout" />
   </div>
   
  
 </div>
 
 </form>
-
-
-
-
 
 </body>
 </html>

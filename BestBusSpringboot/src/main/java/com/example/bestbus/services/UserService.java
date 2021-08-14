@@ -1,35 +1,71 @@
 package com.example.bestbus.services;
 
-import com.example.bestbus.model.User;
-import com.example.bestbus.model.UserRepository;
-import lombok.AllArgsConstructor;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.bestbus.exceptions.UserAlreadyExistException;
+import com.example.bestbus.model.SignupRequest;
+import com.example.bestbus.model.User;
+import com.example.bestbus.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
 
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-
+/*
+ * 	Override Userdeatilservice method	
+ */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User foundedUser =userRepository.findByUsername(username);
+    	
+        User foundedUser =userRepository.findByEmail(username);
+        
         if(foundedUser==null) {
-        	return null;
+        	throw new UsernameNotFoundException(username);
         }
-        String name=foundedUser.getUsername();
-        String pwd=foundedUser.getPassword();
+//        String name=foundedUser.getEmail();
+//        String pwd=foundedUser.getPassword();
+//      return new org.springframework.security.core.userdetails.User(name,pwd,new ArrayList<>());
+        
+        UserDetails user= org.springframework.security.core.userdetails.User
+        		.withUsername(foundedUser.getEmail())
+        		.password(foundedUser.getPassword())
+        		.authorities("USER").build();
+        
 
-        return new org.springframework.security.core.userdetails.User(name,pwd,new ArrayList<>());
+        return user;
     }
+    
+    
+/*
+ *      methods for signup
+ */
+    public void register(final SignupRequest signupRequest) throws UserAlreadyExistException {
+    	if(checkIfUserExist(signupRequest.getEmail())) {
+    		throw new UserAlreadyExistException("User Already Exist");
+    	}
+    	User user=new User();
+    	BeanUtils.copyProperties(signupRequest, user);
+    	encodePassword(signupRequest, user);
+    	userRepository.save(user);
+    	
+	}
+    public boolean checkIfUserExist(String email) {
+    	return (userRepository.findByEmail(email)!=null) ? true : false;
+	}
+    public void encodePassword(SignupRequest signupRequest,User user) {
+    	user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+	}
+    
+    
+    
 }

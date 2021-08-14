@@ -2,25 +2,20 @@ package com.example.bestbus.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HomeController {
+@RequestMapping("/account")
+public class AccountController {
 	
 
     @GetMapping("/home")
     private String home(){
-        return "homeView";
+        return "account/myhome";
     }
     
-    @GetMapping("/")
-    private String index() {
-    	return "index";
-    }
     
-    @GetMapping("/notDone")
-    private String notDone() {
-    	return "Sorry not implemented yet";
-    }
+    
     
     
     
