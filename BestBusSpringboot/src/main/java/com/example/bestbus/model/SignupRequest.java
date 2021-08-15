@@ -1,22 +1,33 @@
 package com.example.bestbus.model;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class SignupRequest {
 
-	@NotEmpty(message = "fill email")
+	@NotEmpty(message = "E-mail Address Cannot be Empty")
+	@Email(message = "E-mail Address is Not Correct")
     private String email;
-	@NotEmpty(message = "password cannot be empty")
-    private String password;
-	@NotEmpty(message = "fill First name")
+	@NotEmpty(message = "Password Cannot be Empty")
+	@Size(min = 4,max = 20)
+    private String password; 
+	@NotEmpty(message = "Re-type Password")
+	private String rePassword;
+	@NotEmpty(message = "First Name Cannot be Empty")
     private String firstName;
-	@NotEmpty(message = "fill Last name")
     private String lastName;
 	
     
     
     
-    public SignupRequest() {
+    public String getRePassword() {
+		return rePassword;
+	}
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
+	}
+	public SignupRequest() {
 	}
 	public SignupRequest(String email, String password, String firstName, String lastName) {
 		this.email = email;

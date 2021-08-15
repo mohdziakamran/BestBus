@@ -1,35 +1,46 @@
 package com.example.bestbus.controller;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.bestbus.exceptions.UserAlreadyExistException;
 import com.example.bestbus.model.LoginRequest;
+import com.example.bestbus.model.SignupRequest;
 
 
 @Controller
+@RequestMapping("/login")
 public class LoginController {
 
 //    @Autowired
 //    private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private AuthenticationProvider authenticationProvider;
+//	@Autowired
+//	private AuthenticationProvider authenticationProvider;
 
 
-    @GetMapping("/login")
+    @GetMapping
     private String viewLogin(Model model) {
     	LoginRequest loginRequest=new LoginRequest();
     	model.addAttribute("loginRequest", loginRequest);
     	return "loginView";
     }
+    
+    
+    
 //    @PostMapping("/login")
 //    private String processLogin(@ModelAttribute("user") LoginRequest loginRequest,Model model) {
 //    	String username=loginRequest.getUsername();

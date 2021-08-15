@@ -1,24 +1,17 @@
 package com.example.bestbus.controller;
 
 
-import java.lang.ProcessBuilder.Redirect;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.example.bestbus.exceptions.UserAlreadyExistException;
-import com.example.bestbus.model.LoginRequest;
 import com.example.bestbus.model.SignupRequest;
-import com.example.bestbus.model.User;
-import com.example.bestbus.repository.UserRepository;
 import com.example.bestbus.services.UserService;
 
 
@@ -37,23 +30,29 @@ public class SignupController {
     
     
     @PostMapping
-    private String processSignup(final @Valid SignupRequest signupRequest,final BindingResult bindingResult,final Model model) {
+    private String processSignup(final @Valid SignupRequest signupRequest,
+    								final BindingResult bindingResult,
+    								final Model model) {
+    	
+    	if(signupRequest.getPassword()!=null
+    			&& signupRequest.getRePassword()!=null
+    			&& !signupRequest.getPassword().equals(signupRequest.getRePassword())) {
+    		bindingResult.addError(new FieldError("signupRequest", "rePassword", "Password not Matched"));
+    	}
     	
     	if(bindingResult.hasErrors()) {
     		model.addAttribute("signupRequest",signupRequest);
     		return "signupView";
     	}
-        
+    	
+    	
         try {
         	userService.register(signupRequest);
         }catch (UserAlreadyExistException e){
-        	System.out.println("exception");///////////
-        	bindingResult.rejectValue("email", "signupRequest.email", "Account already exist with this email address");
+        	bindingResult.rejectValue("email", "signupRequest.email", "E-mail Address already in use");
         	model.addAttribute("signupRequest",signupRequest);
     		return "signupView";
         }
-        System.out.println("sucessfully signup");
-        System.out.println(signupRequest.toString());
         return "redirect:account/home";
     }
     

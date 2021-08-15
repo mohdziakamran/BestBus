@@ -1,16 +1,14 @@
 package com.example.bestbus.model;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
 
 public class LoginRequest {
 	
-	@NotBlank
-	@Email(message = "Email cannot be null and must be valid email address")
+	@NotEmpty(message = "E-mail Address Cannot be Empty")
+	@Email(message = "E-mail Address is Not Correct")
 	String username;
-	@NotBlank
-	@Size(min = 4,message = "passwaord size must be atleast 4")
+	@NotEmpty(message = "Password Cannot be Empty")
     String password;
 
     public LoginRequest() {
