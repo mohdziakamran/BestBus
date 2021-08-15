@@ -15,7 +15,8 @@ import com.example.bestbus.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService,
-							 UserSignupService{
+							 UserSignupService
+							 {
 
 	@Autowired
     private UserRepository userRepository;
@@ -23,7 +24,7 @@ public class UserService implements UserDetailsService,
 	private PasswordEncoder passwordEncoder;
 
 /*
- * 	Override Userdeatilservice method	
+ * 	Override Userdeatilservice method
  */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,9 +43,8 @@ public class UserService implements UserDetailsService,
         return user;
     }
     
-    
 /*
- *      methods for signup
+ *  methods for signup
  */
     @Override
     public void register(final SignupRequest signupRequest) throws UserAlreadyExistException {
