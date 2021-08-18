@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html xmlsn:th="http:www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up</title>
+
+<link rel="stylesheet" th:href="@{/css/basicform.css}"/> 
+
+</head>
+<body>
+
+
+<form action="#" th:action="@{/signup}" th:object="${signupRequest}" method="post">
+
+<div id="login-box">
+  <div class="left">
+    <h1>Sign up</h1>
+    
+    <input th:field="*{firstName}" type="text" placeholder="First Name" />
+    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="alert alert-danger"></p>
+    
+    <input th:field="*{lastName}" type="text" placeholder="Last Name" />
+    
+    
+    <input th:field="*{email}" type="text" placeholder="E-mail" />
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger"></p>
+    
+    <input th:field="*{password}" type="password" placeholder="Password" />
+    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger"></p>
+    
+	<input th:field="*{rePassword}" type="password" placeholder="Retype password" />  
+	<p th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="alert alert-danger"></p>
+    
+    <input type="submit" name="signup_submit" value="Sign Up" />
+  </div>
+  
+</div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/izitoast/js/iziToast.min.js}"></script>
+
+<script>
+    $('button[type="submit"]').click(function (event) {
+        event.preventDefault();
+
+        $.post("/email", {'email': $('#email').val()}, function () {
+            iziToast.show({
+                title: 'Success',
+                message: 'Provided email address is valid',
+                position: 'topRight',
+                timeout: 500000,
+                color: 'green'
+            });
+
+        }).fail(function () {
+            iziToast.show({
+                title: 'Fail',
+                message: 'This is not a valid email address',
+                position: 'topRight',
+                color: 'red'
+            });
+        });
+    });
+</script>
+ -->
+
+
+</body>
+</html>

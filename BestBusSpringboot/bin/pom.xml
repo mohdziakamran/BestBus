@@ -14,7 +14,7 @@
 	<name>BestBusSpringboot</name>
 	<description>Spring Boot project for backend of BestBus</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
