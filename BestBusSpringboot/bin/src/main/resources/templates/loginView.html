@@ -19,14 +19,10 @@
     
     <p th:if="${param.error}" class="alert alert-danger">Invalid Username or Password</p>
 	<p th:if="${param.logout}" class="alert alert-success">You have been logged out</p>
-	<p th:if="${invalidSession}" class="alert alert-danger">Invalid Session</p>
         
     <input th:field="*{username}" type="text" placeholder="E-mail"/> 
     
     <input th:field="*{password}" type="password" placeholder="Password"/> 
-    
-    <input type="checkbox" id= "remember" name= "remember-me" />
-    <label>Remember Me</label>
     
     <input type="submit" name="signup_submit" value="Login" />
   </div>
