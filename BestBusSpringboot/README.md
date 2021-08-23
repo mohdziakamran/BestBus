@@ -34,3 +34,6 @@
 #Authority
 - USER
 - ADMIN
+
+---
+#HTTPS
